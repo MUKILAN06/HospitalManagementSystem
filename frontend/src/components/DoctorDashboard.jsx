@@ -15,7 +15,7 @@ function DoctorDashboard() {
             .then(res => setAppointments(res.data))
             .catch(err => console.error(err));
     };
-
+// fetch
     useEffect(() => {
         fetchAppointments();
     }, []);

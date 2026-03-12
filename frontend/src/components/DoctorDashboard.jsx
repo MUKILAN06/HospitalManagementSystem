@@ -44,7 +44,16 @@ function DoctorDashboard() {
 
     const handleAddSlot = (e) => {
         e.preventDefault();
-        api.post(`/api/users/${doctorId}/slots`, newSlot)
+        
+        let formattedSlot = { ...newSlot };
+        if (formattedSlot.startTime && formattedSlot.startTime.length === 5) {
+            formattedSlot.startTime = formattedSlot.startTime + ':00';
+        }
+        if (formattedSlot.endTime && formattedSlot.endTime.length === 5) {
+            formattedSlot.endTime = formattedSlot.endTime + ':00';
+        }
+
+        api.post(`/api/users/${doctorId}/slots`, formattedSlot)
             .then(res => {
                 setMessage({ text: 'Slot Added Successfully!', type: 'success' });
                 setNewSlot({ date: '', startTime: '', endTime: '' });
